@@ -3,10 +3,144 @@ import QtQuick.Layouts
 import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
-Item {
+Kirigami.Page {
 	id: calendarView
 	width: 1200
 	height: 800
+
+	title: i18nc("@title", "Food Diary")
+
+	property list<string> searchHits: []
+
+	function doSearch() {
+		searchHits = Backend.searchDays(searchField.text, 
+			searchPoopCB.checked,
+			searchFoodCB.checked,
+			searchNotesCB.checked,
+			searchWeightsCB.checked);
+		calendarCanvas.requestPaint();
+	}
+
+	Kirigami.Dialog {
+		id: searchDialog
+		title: i18nc("@title:window", "Search Diary")
+		standardButtons: Kirigami.Dialog.Ok
+		padding: Kirigami.Units.largeSpacing
+		preferredWidth: Kirigami.Units.gridUnit * 25
+
+		Kirigami.FormLayout {
+			Controls.TextField {
+				id: searchField
+				Layout.preferredWidth: Kirigami.Units.gridUnit * 15
+				Kirigami.FormData.label: i18nc("@label:textbox", "Search Text")
+				onTextChanged: () => {
+					doSearch();
+				}
+			}
+			RowLayout {
+				Controls.CheckBox {
+					id: searchPoopCB
+					text: "Poop"
+					checked: false
+					onCheckedChanged: () => {
+						doSearch();
+					}
+				}
+				Controls.CheckBox {
+					id: searchFoodCB
+					text: "Food"
+					checked: true
+					onCheckedChanged: () => {
+						doSearch();
+					}
+				}
+				Controls.CheckBox {
+					id: searchNotesCB
+					text: "Notes"
+					checked: false
+					onCheckedChanged: () => {
+						doSearch();
+					}
+				}
+				Controls.CheckBox {
+					id: searchWeightsCB
+					text: "Weights"
+					checked: false
+					onCheckedChanged: () => {
+						doSearch();
+					}
+				}
+			}
+		}
+	}
+
+	Kirigami.Dialog {
+		id: dayDialog
+		title: i18nc("@title:window", "View/Edit Day")
+		standardButtons: Kirigami.Dialog.Save | Kirigami.Dialog.Reset | Kirigami.Dialog.Cancel
+		padding: Kirigami.Units.largeSpacing
+		preferredWidth: Kirigami.Units.gridUnit * 25
+
+		Controls.ScrollView {
+			anchors.fill: parent
+			contentWidth: availableWidth
+
+			Controls.TextArea {
+				id: dayTextArea
+				wrapMode: Text.WordWrap
+				selectByMouse: true
+				persistentSelection: true
+
+				leftPadding: Kirigami.Units.largeSpacing
+				rightPadding: Kirigami.Units.largeSpacing
+			}
+		}
+
+		// Create a handler for the reset button
+		// (the reset button deletes the day - sets it back to the default template)
+		Component.onCompleted: {
+			const resetButton = standardButton(Kirigami.Dialog.Reset);
+
+			if (resetButton) {
+				resetButton.clicked.connect(() => {
+					const error = Backend.updateDay(dayTextArea.text, true);
+					if (error) {
+						console.log(error);
+						return;
+					}
+					dayDialog.close();
+					calendarCanvas.requestPaint();
+				});
+			}
+		}
+
+		onAccepted: {
+			const error = Backend.updateDay(dayTextArea.text, false);
+			if (error) {
+				console.log(error);
+				return;
+			}
+			calendarCanvas.requestPaint();
+		}
+	}
+
+	actions: [
+		Kirigami.Action {
+			text: "This Month"
+			icon.name: "go-home"
+			onTriggered: () => {
+				currentMonth = currentDate.getMonth()
+				calendarCanvas.requestPaint();
+			}
+		},
+		Kirigami.Action {
+			text: "Search"
+			icon.name: "search"
+			onTriggered: () => {
+				searchDialog.open();
+			}
+		},
+	]
 
 	property date currentDate: new Date()
 	property int currentYear: currentDate.getFullYear()
@@ -48,7 +182,7 @@ Item {
 				horizontalAlignment: Text.AlignHCenter
 				font.pixelSize: 18
 				font.bold: true
-				color: '#aaa'
+				color: '#ddd'
 				text: Qt.locale().monthName(currentMonth, Locale.LongFormat) 
 					+ " " + currentYear.toString()
 			}
@@ -79,7 +213,12 @@ Item {
 			width: parent.width
 			height: parent.height-50
 
+			// Drawing properties
 			property int headerHeight: 30
+			property int columns: 7
+			property int rows: 6
+			property double cellWidth: width / columns
+			property double cellHeight: (height - headerHeight) / rows
 
 			// Mouse tracking
 			property int mouseX: 0
@@ -112,20 +251,72 @@ Item {
 					calendarCanvas.requestPaint();
 					mouseArea.cursorShape = Qt.ArrowCursor;
 				}
+
+				onClicked: (mouse) => {
+					// Month metrics (duplicated)
+					const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+					const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate();
+					const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
+					const today = new Date();
+
+					// Days of week (duplicated)
+					const daysOfWeek = 
+						['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+					// Get day corresponding to mouse position
+					const r = Math.floor(
+						(mouse.y - calendarCanvas.headerHeight)
+						/calendarCanvas.cellHeight);
+					const d = Math.floor(
+						mouse.x/calendarCanvas.cellWidth);
+
+					if (r < 0 || r > 6 || d < 0 || d > 7) {
+						return;
+					}
+						
+					const dayCount = r*7 + d - firstDayOfMonth + 1;
+					let month, day, year;
+
+					// Duplicated partly from onPaint method
+					// We're in the previous month
+					if (dayCount < 1) {
+						day = daysInPrevMonth + dayCount;
+						month = currentMonth - 1;
+					// We're in the current month
+					} else if (dayCount <= daysInMonth) {
+						day = dayCount;
+						month = currentMonth;
+					// We're in the next month
+					} else {
+						day = dayCount - daysInMonth;
+						month = currentMonth + 1;
+					}
+
+					// Zero-based months to one-based months
+					// Plus some other fix-ups
+					month = month+1;
+					year = currentYear;
+					if (month == 0) {
+						month = 12;
+						year = currentYear-1;
+					} else if (month == 12) {
+						month = 0;
+						year = currentYear+1;
+					}
+
+					const dayStr = Backend.getDayString(daysOfWeek[d], month, day, year);
+					dayTextArea.text = dayStr;
+					dayDialog.open();
+				}
 			}
 
 			onPaint: {
 				const ctx = getContext('2d');
 				ctx.clearRect(0, 0, width, height);
 
-				const columns = 7;
-				const rows = 6;
-				const cellWidth = width / columns;
-				const cellHeight = (height - headerHeight) / rows;
-
 				// Day names header row
 				ctx.font = 'bold 13px sans-serif';
-				ctx.fillStyle = '#aaa';
+				ctx.fillStyle = '#ddd';
 				const daysOfWeek = 
 					['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 				for (let d = 0; d < 7; d++) {
@@ -176,66 +367,57 @@ Item {
 					ctx.restore();
 				}
 
-				// Fill in calendar text
-				let dayCount = -1;
-				let nextMonth = false;
+				// Fill in calendar cells
 				for (let r = 0; r < 6; r++) {
 					for (let d = 0; d < 7; d++) {
-						// We're in previous month
-						if (dayCount == -1 && d < firstDayOfMonth) {
-							// Highlight hovering
-							if (hoveringWithinDay(r, d)) {
-								ctx.save();
-								ctx.fillStyle = '#444';
-								ctx.fillRect(d*cellWidth, headerHeight+r*cellHeight, 
-									cellWidth, cellHeight);
-								ctx.restore();
-							}
-							const day = daysInPrevMonth - (firstDayOfMonth - d) + 1;
-							ctx.fillText(day, d*cellWidth+5, headerHeight+r*cellHeight+20);
-							// Get calories for today
-							drawCaloriesAndWeights('#aaa', '#99f',
-								currentMonth, day, currentYear,
-								r, d);
-						}
-						// We begin current month
-						if (dayCount == -1 && d == firstDayOfMonth) {
-							ctx.fillStyle = '#aaa';
-							dayCount = 0;
-						}
-						if (dayCount > -1 && dayCount < daysInMonth) {
-							dayCount++;
-							// Highlight current day or hovering
-							if (hoveringWithinDay(r, d) ||
-									(dayCount == today.getDate() 
+						const dayCount = r*7 + d - firstDayOfMonth + 1;
+						let month, day, fillStyle, lineWidth;
+						// We're in the previous month
+						if (dayCount < 1) {
+							day = daysInPrevMonth + dayCount;
+							month = currentMonth - 1;
+							fillStyle = '#222';
+							lineWidth = 1;
+						// We're in the current month
+						} else if (dayCount <= daysInMonth) {
+							day = dayCount;
+							month = currentMonth;
+							fillStyle = '#222239';
+							lineWidth = 1;
+							// We're in the current day
+							if (day == today.getDate() 
 									&& currentMonth == today.getMonth() 
-									&& currentYear == today.getFullYear())) {
-								ctx.save();
-								ctx.fillStyle = '#444';
-								ctx.fillRect(d*cellWidth, headerHeight+r*cellHeight, 
-									cellWidth, cellHeight);
-								ctx.restore();
-							} else if (dayCount > -1 && !nextMonth) {
-								ctx.save();
-								ctx.fillStyle = '#292929';
-								ctx.fillRect(d*cellWidth, headerHeight+r*cellHeight, 
-									cellWidth, cellHeight);
-								ctx.restore();
+									&& currentYear == today.getFullYear()) {
+								fillStyle = '#335';
 							}
-							ctx.fillText(dayCount, d*cellWidth+5, headerHeight+r*cellHeight+20);
-							// Get calories for today
-							const month = nextMonth ? currentMonth+2 : currentMonth+1;
-							drawCaloriesAndWeights(nextMonth ? '#aaa' : '#fff', 
-								nextMonth ? '#99f' : '#aaf',
-								month, dayCount, currentYear,
-								r, d);
+						// We're in the next month
+						} else {
+							day = dayCount - daysInMonth;
+							month = currentMonth + 1;
+							fillStyle = '#222';
+							lineWidth = 1;
 						}
-						// We begin next month
-						if (dayCount == daysInMonth) {
-							ctx.fillStyle = '#555';
-							dayCount = 0;
-							nextMonth = true;
+						// Highlight hovering
+						if (hoveringWithinDay(r, d)) {
+							fillStyle = '#335';
 						}
+						// Highlight search
+						const key = `${month+1}/${day}/${currentYear}`;
+						if (searchHits.includes(key)) {
+							fillStyle = '#533';
+						}
+						ctx.fillStyle = fillStyle;
+						ctx.fillRect(d*cellWidth, headerHeight+r*cellHeight, 
+							cellWidth, cellHeight);
+						ctx.fillStyle = '#bbb';
+						ctx.fillText(day, d*cellWidth+5, headerHeight+r*cellHeight+20);
+						ctx.strokeStyle = '#ddd';
+						ctx.lineWidth = lineWidth;
+						ctx.strokeRect(d*cellWidth, headerHeight+r*cellHeight, 
+							cellWidth, cellHeight);
+						// Get calories for today
+						drawCaloriesAndWeights('#fff', '#4f4',
+							month+1, day, currentYear, r, d);
 					}
 				}
 
@@ -245,26 +427,6 @@ Item {
 				ctx.strokeRect(0, 0, width, height);
 
 				ctx.lineWidth = 1;
-
-				// Draw grid
-				for (let d = 0; d < 7; d++) {
-					ctx.beginPath();
-					ctx.moveTo(d*cellWidth, 0);
-					ctx.lineTo(d*cellWidth, height);
-					ctx.stroke();
-				}
-
-				ctx.beginPath();
-				ctx.moveTo(0, headerHeight);
-				ctx.lineTo(width, headerHeight);
-				ctx.stroke();
-
-				for (let r = 0; r < rows; r++) {
-					ctx.beginPath()
-					ctx.moveTo(0, headerHeight + r*cellHeight);
-					ctx.lineTo(width, headerHeight + r*cellHeight);
-					ctx.stroke();
-				}
 			}
 		}
 	}

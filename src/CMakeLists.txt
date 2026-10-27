@@ -8,7 +8,7 @@ ecm_add_qml_module(kfooddiary
 target_sources(kfooddiary
     PRIVATE
     main.cpp
-	diary_read_write.cpp
+	backend.cpp
 )
 
 ecm_target_qml_sources(kfooddiary
