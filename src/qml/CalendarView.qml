@@ -300,7 +300,7 @@ Kirigami.Page {
 						month = 12;
 						year = currentYear-1;
 					} else if (month == 12) {
-						month = 0;
+						month = 1;
 						year = currentYear+1;
 					}
 
