@@ -1,5 +1,7 @@
 # KFoodDiary
 
+<img src='https://github.com/aorliche/kfooddiary/blob/e6e80d70d79fa4cee722f7b5e3b2a171d059cc94/images/logo.png'>
+
 A text-first food, workout, and weight recorder and tracker. The database file is just a semi-structured text file that can be edited with any text editor.
 
 The GUI takes that text file and organizes/summarizes it.
