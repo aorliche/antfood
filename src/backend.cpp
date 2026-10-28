@@ -12,6 +12,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QTemporaryFile>
+#include <QFile>
 
 #include "backend.h"
 
@@ -239,6 +240,7 @@ vector<diary_day> read_diary_file(const string &fname) {
 
 void reload() {
 	vector<diary_day> days = read_diary_file(diary_fname);
+	diary_map.clear();
 	for (const diary_day &day : days) {
 		string key = day.date_key();
 		diary_map[key] = day;
@@ -320,7 +322,13 @@ QStringList Backend::searchDays(QString needle,
 	QStringList list;
 
 	string needle2 = needle.toStdString(); // copy
+	trim(needle2);
 	to_lower(needle2);
+
+	// Empty search should return nothing, not everything
+	if (needle2.size() == 0) {
+		return list;
+	}
 
 	for (const auto& pair : diary_map) {
 		bool found = false;
@@ -389,6 +397,16 @@ QString Backend::getDiaryDirectory() {
 void Backend::setDiaryFile(const QString &fname) {
 	// Update name and reload
 	diary_fname = fname.toStdString();
+	// If file does not exist, create it
+	if (!QFile::exists(fname)) {
+		QFile file(fname);
+		if (file.open(QIODevice::WriteOnly)) {
+			file.close();
+		} else {
+			cerr << "Failed to open/create " << diary_fname << endl;
+			return;
+		}
+	}
 	reload();
 	// Update config file
 	string local = QDir::homePath().toStdString() + string(LOCAL_DIR);
