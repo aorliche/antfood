@@ -348,7 +348,7 @@ Kirigami.Page {
 
 				onMoved: {
 					graphCanvas.requestPaint();
-					radiusLabel.text = value + " days"
+					//radiusLabel.text = value + " days"
 				}
 			}
 

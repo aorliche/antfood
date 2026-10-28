@@ -7,6 +7,8 @@
 #include <KLocalizedString>
 #include <KIconTheme>
 
+#include <QIcon>
+
 #include "backend.h"
 
 using namespace std;

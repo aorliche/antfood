@@ -26,7 +26,7 @@ public:
 	// dayOfWeek helper to not force C++ to find it, since it's easy to get in JS
 	Q_INVOKABLE QString getDayString(const QString &dayOfWeek, int month, int day, int year);
 
-	// Used to update or remove a single day's day
+	// Used to update or remove a single day's diary info
 	Q_INVOKABLE QString updateDay(const QString &dayString, bool remove);
 
 	Q_INVOKABLE QStringList getCalorieGraph();
