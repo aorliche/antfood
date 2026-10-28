@@ -4,7 +4,7 @@ import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
 Kirigami.Page {
-	id: calendarView
+	id: calendarPage
 	width: 1200
 	height: 800
 
@@ -126,7 +126,7 @@ Kirigami.Page {
 
 	actions: [
 		Kirigami.Action {
-			text: "This Month"
+			text: "Current Month"
 			icon.name: "go-home"
 			onTriggered: () => {
 				currentMonth = currentDate.getMonth()
@@ -138,6 +138,13 @@ Kirigami.Page {
 			icon.name: "search"
 			onTriggered: () => {
 				searchDialog.open();
+			}
+		},
+		Kirigami.Action {
+			text: "Graphs"
+			icon.name: "office-chart-line"
+			onTriggered: () => {
+				root.pageStack.layers.push(graphPage);
 			}
 		},
 	]
@@ -416,7 +423,7 @@ Kirigami.Page {
 						ctx.strokeRect(d*cellWidth, headerHeight+r*cellHeight, 
 							cellWidth, cellHeight);
 						// Get calories for today
-						drawCaloriesAndWeights('#fff', '#4f4',
+						drawCaloriesAndWeights('#fff', '#fff',
 							month+1, day, currentYear, r, d);
 					}
 				}
@@ -425,8 +432,6 @@ Kirigami.Page {
 				ctx.strokeStyle = '#aaa';
 				ctx.lineWidth = 2;
 				ctx.strokeRect(0, 0, width, height);
-
-				ctx.lineWidth = 1;
 			}
 		}
 	}

@@ -422,6 +422,41 @@ QString Backend::getDayString(const QString &dayOfWeek, int month, int day, int 
 	return QString::fromStdString(ss2.str());
 }
 
+vector<diary_day> diary_map_to_vector() {
+	vector<diary_day> days;
+	for (const auto &pair : diary_map) {
+		days.push_back(pair.second);
+	}
+	// Sort by date
+	// Note: we're copying everything here, I wonder how much this really matters
+	sort(days.begin(), days.end(), [](const diary_day &a, const diary_day &b) {
+		if (a.year != b.year) return a.year < b.year;
+		if (a.month != b.month) return a.month < b.month;
+		if (a.day != b.day) return a.day < b.day;
+		// Should never get here
+		return false;
+	});
+	return days;
+}
+
+// Write diary_map to the diary_fname file
+// Return is error; empty string is no error
+string write_diary() {
+	// Convert to vector
+	vector<diary_day> days = diary_map_to_vector();
+	stringstream ss;
+	// Write to diary file
+	ofstream file(diary_fname);
+	if (!file.good()) {
+		ss << "Failed opening " << diary_fname;
+		return ss.str();
+	}
+	for (const auto &day : days) {
+		file << day << endl;
+	}
+	return ""s;
+}
+
 // QML Interface
 QString Backend::updateDay(const QString &dayString, bool remove) {
 	// We do this in the worst way possible:
@@ -461,6 +496,38 @@ QString Backend::updateDay(const QString &dayString, bool remove) {
 		diary_map[key] = days[0];
 	}
 
-	// Empty string is no error
-	return QString();
+	// Update on disk
+	string err = write_diary();	
+	return QString::fromStdString(err);
+}
+
+// QML Interface
+QStringList Backend::getCalorieGraph() {
+	// Return a string list with entries like "10/26/2026-2800"
+	// Leave processing to JS
+	vector<diary_day> days = diary_map_to_vector();
+	QStringList list;
+	for (const auto &day : days) {
+		stringstream ss;
+		ss << day.date_key() << "-" << day.calories();
+		list << QString::fromStdString(ss.str());
+	}
+	return list;
+}
+
+// QML Interface
+QStringList Backend::getWeightsGraph() {
+	// Return a string list with entries like "10/26/2026-150"
+	// Leave processing to JS
+	vector<diary_day> days = diary_map_to_vector();
+	QStringList list;
+	for (const auto &day : days) {
+		const auto &weights = day.weights_as_strs();
+		for (const auto &w : weights) {
+			stringstream ss;
+			ss << day.date_key() << "-" << w;
+			list << QString::fromStdString(ss.str());
+		}
+	}
+	return list;
 }

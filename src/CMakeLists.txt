@@ -14,7 +14,8 @@ target_sources(kfooddiary
 ecm_target_qml_sources(kfooddiary
     SOURCES
     qml/Main.qml
-	qml/CalendarView.qml
+	qml/CalendarPage.qml
+	qml/GraphPage.qml
 )
 
 target_link_libraries(kfooddiary

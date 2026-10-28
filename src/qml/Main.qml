@@ -81,7 +81,12 @@ Kirigami.ApplicationWindow {
 		]
 	}
 
-	pageStack.initialPage: CalendarView {
-		id: calendarView
+	pageStack.initialPage: CalendarPage {
+		id: calendarPage
+	}
+
+	Component {
+		id: graphPage
+		GraphPage {}
 	}
 }
