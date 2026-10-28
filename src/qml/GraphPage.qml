@@ -58,7 +58,7 @@ Kirigami.Page {
 				ctx.translate(leftAxisWidth-45, height/2);
 				ctx.rotate(-Math.PI/2);
 				ctx.textAlign = 'center';
-				ctx.fillStyle = '#d99';
+				ctx.fillStyle = '#f33';
 				ctx.fillText('Calories', 0, 0);
 				ctx.restore();
 				
@@ -66,7 +66,7 @@ Kirigami.Page {
 				ctx.translate(width-15, height/2);
 				ctx.rotate(Math.PI/2);
 				ctx.textAlign = 'center';
-				ctx.fillStyle = '#66d';
+				ctx.fillStyle = '#44f';
 				ctx.fillText('Weight', 0, 0);
 				ctx.restore();
 

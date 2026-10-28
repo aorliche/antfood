@@ -36,10 +36,6 @@ Kirigami.ApplicationWindow {
 				id: diaryFilenameField
 				Layout.preferredWidth: Kirigami.Units.gridUnit * 20
 				Kirigami.FormData.label: i18nc("@label:textbox", "Diary File")
-
-				onTextChanged: {
-					Backend.setDiaryFile(diaryFilenameField.text);
-				}
 			}
 
 			Controls.Button {
@@ -51,13 +47,7 @@ Kirigami.ApplicationWindow {
 		}
 
 		onAccepted: {
-			/*if (Backend.isValidFile(diaryFilenameField.text)) {
-				diaryFile = diaryFilenameField.text;
-				Backend.setDiaryFile(diaryFile);
-				calendarCanvas.requestPaint();
-			} else {
-				console.log("Invalid diary file");
-			}*/
+			Backend.setDiaryFile(diaryFilenameField.text);
 		}
 	}
 
