@@ -5,4 +5,4 @@ Exec=kfooddiary
 Icon=org.kde.kfooddiary
 Type=Application
 Terminal=false
-Categories=HealthFitness
+Categories=Utility

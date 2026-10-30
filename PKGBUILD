@@ -2,7 +2,7 @@
 
 pkgname=kfooddiary-git
 _pkgname=${pkgname%-git}
-pkgver=r0.1
+pkgver=r0.16
 pkgrel=1
 pkgdesc='A text-first app for recording and viewing calories, weight, and other daily events'
 arch=('x86_64')

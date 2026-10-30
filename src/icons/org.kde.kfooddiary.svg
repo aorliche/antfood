@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="30.637018mm"
-   height="23.831606mm"
-   viewBox="0 0 30.637018 23.831606"
+   width="24mm"
+   height="24mm"
+   viewBox="0 0 24 24"
    version="1.1"
    id="svg1"
    inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
@@ -23,9 +23,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="1.9376591"
-     inkscape:cx="149.40709"
-     inkscape:cy="472.47733"
+     inkscape:zoom="5.4805276"
+     inkscape:cx="169.78293"
+     inkscape:cy="509.16631"
      inkscape:window-width="1745"
      inkscape:window-height="1020"
      inkscape:window-x="0"
@@ -34,8 +34,8 @@
      inkscape:current-layer="layer1"><inkscape:page
        x="0"
        y="0"
-       width="30.637018"
-       height="23.831606"
+       width="24"
+       height="24"
        id="page2"
        margin="0"
        bleed="0" /></sodipodi:namedview><defs
@@ -43,15 +43,18 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-38.627706,-125.19909)"><path
+     transform="translate(-41.002591,-123.23838)"><path
        id="path11"
-       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:0.933244;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 66.315175,131.12801 -3.774011,0.0994 -3.013457,2.43011 -2.997483,-2.41752 -3.774009,-0.0993 -2.284288,1.98623 -0.198642,3.37674 2.284288,4.86644 3.873237,3.87343 2.336286,2.19724 1.095108,1.12331 2.778187,-2.83675 3.873426,-4.36982 2.284288,-4.86645 -0.198642,-3.37672 z"
+       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:0.900526;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 63.280344,128.81167 -3.261881,0.10707 -2.604534,2.61796 -2.590726,-2.60439 -3.261882,-0.10696 -1.974309,2.13977 -0.171688,3.63776 1.974312,5.24261 3.347643,4.17286 2.019253,2.36708 0.946503,1.21013 2.40119,-3.05602 3.347805,-4.70762 1.974312,-5.24263 -0.171687,-3.63772 z"
        sodipodi:nodetypes="cccccccccccccccc"
        inkscape:export-filename="../src/icons/org.kde.kfooddiary.svg"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" /><path
-       style="fill:#097ec0;fill-opacity:1;stroke:#000000;stroke-width:0.85;stroke-linejoin:round"
-       d="m 39.189255,125.62409 -0.136548,4.984 0.273096,5.66674 1.365478,6.96395 5.052275,0.13655 -0.136549,-5.32537 1.638575,-1.77513 4.64263,7.37359 6.144657,-0.81929 -6.827395,-9.96799 4.506081,-4.36954 -0.136549,-2.8675 -5.461918,0.13654 -3.27715,3.95989 -0.273095,-4.09644 z"
+       style="fill:#097ec0;fill-opacity:1;stroke:#000000;stroke-width:0.820201;stroke-linejoin:round"
+       d="m 41.530711,123.64848 -0.118017,5.36926 0.236037,6.10479 1.180184,7.50225 4.366685,0.14712 -0.118019,-5.73704 1.416222,-1.91233 4.012629,7.94357 5.310833,-0.88262 -5.900925,-10.73852 3.894611,-4.70731 -0.11802,-3.08916 -4.720739,0.14709 -2.832446,4.26599 -0.236036,-4.41309 z"
        id="path1"
-       sodipodi:nodetypes="cccccccccccccccc" /></g></svg>
+       sodipodi:nodetypes="cccccccccccccccc"
+       inkscape:export-filename="../src/icons/org.kde.kfooddiary.svg"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" /></g></svg>

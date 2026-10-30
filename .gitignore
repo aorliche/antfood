@@ -1,3 +1,6 @@
 build/**
+build-flatpak/**
+scratch/**
+.flatpak-builder/**
 CMakeCache.txt
 CMakeFiles/**
