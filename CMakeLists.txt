@@ -31,9 +31,9 @@ ecm_find_qmlmodule(org.kde.kirigami REQUIRED)
 
 add_subdirectory(src)
 
-install(PROGRAMS org.kde.kfooddiary.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+install(PROGRAMS io.github.aorliche.kfooddiary.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 
-install(FILES src/icons/org.kde.kfooddiary.svg 
+install(FILES src/icons/io.github.aorliche.kfooddiary.svg 
 	DESTINATION ${KDE_INSTALL_FULL_ICONDIR}/hicolor/scalable/apps)
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

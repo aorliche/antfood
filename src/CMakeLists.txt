@@ -2,7 +2,7 @@ add_executable(kfooddiary)
 
 ecm_add_qml_module(kfooddiary
     URI
-    org.kde.kfooddiary
+    io.github.aorliche.kfooddiary
 )
 
 target_sources(kfooddiary

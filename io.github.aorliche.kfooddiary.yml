@@ -1,4 +1,4 @@
-id: org.kde.kfooddiary
+id: io.github.aorliche.kfooddiary
 runtime: org.kde.Platform
 runtime-version: 6.11
 sdk: org.kde.Sdk

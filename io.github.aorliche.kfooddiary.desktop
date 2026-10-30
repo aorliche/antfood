@@ -2,7 +2,7 @@
 Name=KFoodDiary
 Comment=Record and view calories, weight, and other daily events
 Exec=kfooddiary
-Icon=org.kde.kfooddiary
+Icon=io.github.aorliche.kfooddiary
 Type=Application
 Terminal=false
 Categories=Utility

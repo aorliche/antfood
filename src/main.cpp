@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     QApplication::setOrganizationName(QStringLiteral("KDE"));
     QApplication::setOrganizationDomain(QStringLiteral("kde.org"));
     QApplication::setApplicationName(QStringLiteral("KFoodDiary"));
-    QApplication::setDesktopFileName(QStringLiteral("org.kde.kfooddiary"));
+    QApplication::setDesktopFileName(QStringLiteral("io.github.aorliche.kfooddiary"));
 
     QApplication::setStyle(QStringLiteral("breeze"));
     if (qEnvironmentVariableIsEmpty("QT_QUICK_CONTROLS_STYLE")) {
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
-    engine.loadFromModule("org.kde.kfooddiary", "Main");
+    engine.loadFromModule("io.github.aorliche.kfooddiary", "Main");
 
     if (engine.rootObjects().isEmpty()) {
         return -1;
