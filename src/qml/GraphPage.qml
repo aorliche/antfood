@@ -284,8 +284,13 @@ Kirigami.Page {
 			}
 		}
 
-		Row {
+		RowLayout {
+			width: parent.width
 			spacing: 10
+
+			Item {
+				Layout.fillWidth: true
+			}
 
 			Controls.Label {
 				text: 'Display:'
@@ -328,10 +333,19 @@ Kirigami.Page {
 					graphCanvas.requestPaint();
 				}
 			}
+			
+			Item {
+				Layout.fillWidth: true
+			}
 		}
 
-		Row {
+		RowLayout {
+			width: parent.width
 			spacing: 10
+			
+			Item {
+				Layout.fillWidth: true
+			}
 
 			Controls.Label {
 				text: 'Trendline smoothing:'
@@ -341,7 +355,7 @@ Kirigami.Page {
 
 			Controls.Slider {
 				id: radiusSlider
-				width: Kirigami.Units.gridUnit * 25
+				Layout.preferredWidth: 300
 
 				from: 1
 				to: 25
@@ -350,7 +364,6 @@ Kirigami.Page {
 
 				onMoved: {
 					graphCanvas.requestPaint();
-					//radiusLabel.text = value + " days"
 				}
 			}
 
@@ -360,10 +373,19 @@ Kirigami.Page {
 				anchors.top: parent.top
 				anchors.topMargin: 2
 			}
+			
+			Item {
+				Layout.fillWidth: true
+			}
 		}
 
-		Row {
+		RowLayout {
+			width: parent.width
 			spacing: 10
+			
+			Item {
+				Layout.fillWidth: true
+			}
 
 			Controls.Label {
 				text: 'Start and end dates:'
@@ -374,7 +396,7 @@ Kirigami.Page {
 
 			Controls.RangeSlider {
 				id: dateSlider
-				width: Kirigami.Units.gridUnit * 25
+				Layout.preferredWidth: 300
 
 				from: 0
 				to: 100
@@ -387,6 +409,10 @@ Kirigami.Page {
 				second.onMoved: {
 					graphCanvas.requestPaint();
 				}
+			}
+			
+			Item {
+				Layout.fillWidth: true
 			}
 		}
 	}
