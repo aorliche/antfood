@@ -44,11 +44,11 @@ Kirigami.Page {
 				const graphHeight = height-bottomAxisHeight;
 
 				// Draw background
-				ctx.fillStyle = '#112';
+				ctx.fillStyle = Kirigami.Theme['alternateBackgroundColor'];
 				ctx.fillRect(leftAxisWidth, 0, graphWidth, graphHeight);
 
 				// Draw axes
-				ctx.strokeStyle = '#ddd';
+				ctx.strokeStyle = Kirigami.Theme['textColor'];
 				ctx.strokeRect(leftAxisWidth, 0, graphWidth, graphHeight);
 
 				ctx.font = "18px sans-serif";
@@ -58,7 +58,7 @@ Kirigami.Page {
 				ctx.translate(leftAxisWidth-45, height/2);
 				ctx.rotate(-Math.PI/2);
 				ctx.textAlign = 'center';
-				ctx.fillStyle = '#f33';
+				ctx.fillStyle = Kirigami.Theme['negativeTextColor'];
 				ctx.fillText('Calories', 0, 0);
 				ctx.restore();
 				
@@ -66,11 +66,11 @@ Kirigami.Page {
 				ctx.translate(width-15, height/2);
 				ctx.rotate(Math.PI/2);
 				ctx.textAlign = 'center';
-				ctx.fillStyle = '#44f';
+				ctx.fillStyle = Kirigami.Theme['activeTextColor'];
 				ctx.fillText('Weight', 0, 0);
 				ctx.restore();
 
-				ctx.fillStyle = '#ddd';
+				ctx.fillStyle = Kirigami.Theme['textColor'];
 				const tm = ctx.measureText('Date');
 				ctx.fillText('Date', leftAxisWidth+graphWidth/2-tm.width/2, graphHeight+40);
 
@@ -137,13 +137,13 @@ Kirigami.Page {
 
 				for (let i=0; i<calTicks.length; i++) {
 					const y = graphHeight - (calTicks[i] - minCals + 100) / calRange * graphHeight;
-					ctx.strokeStyle = '#ddd';
+					ctx.strokeStyle = Kirigami.Theme['textColor'];
 					ctx.lineWidth = 1;
 					ctx.beginPath();
 					ctx.moveTo(leftAxisWidth, y);
 					ctx.lineTo(leftAxisWidth + graphWidth, y);
 					ctx.stroke();
-					ctx.fillStyle = '#ddd';
+					ctx.fillStyle = Kirigami.Theme['textColor'];
 					ctx.font = '13px sans-serif';
 					ctx.fillText(calTicks[i], leftAxisWidth-35, y);
 				}
@@ -152,7 +152,7 @@ Kirigami.Page {
 
 				for (let i=0; i<wsTicks.length; i++) {
 					const y = graphHeight - (wsTicks[i] - minW + 5) / wsRange * graphHeight;
-					ctx.fillStyle = '#ddd';
+					ctx.fillStyle = Kirigami.Theme['textColor'];
 					ctx.font = '13px sans-serif';
 					ctx.fillText(wsTicks[i], leftAxisWidth+graphWidth+5, y);
 				}
@@ -162,7 +162,7 @@ Kirigami.Page {
 
 				for (let i=0; i<dateTicks.length; i++) {
 					const x = leftAxisWidth + dateTicks[i] / nDays * graphWidth;
-					ctx.strokeStyle = '#ddd';
+					ctx.strokeStyle = Kirigami.Theme['textColor'];
 					ctx.lineWidth = 1;
 					ctx.beginPath();
 					ctx.moveTo(x, 0);
@@ -172,7 +172,7 @@ Kirigami.Page {
 					today.setDate(today.getDate() + dateTicks[i]);
 					// Not sure about the +1 on getDate, some kind of bug
 					const lab = `${today.getMonth()+1}/${today.getDate()+1}/${today.getFullYear()}`;
-					ctx.fillStyle = '#ddd';
+					ctx.fillStyle = Kirigami.Theme['textColor'];
 					ctx.font = '13px sans-serif';
 					const tm = ctx.measureText(lab);
 					ctx.fillText(lab, x-tm.width/2, graphHeight+15);
@@ -198,7 +198,7 @@ Kirigami.Page {
 					if (viewCaloriesCB.checked) {
 						ctx.beginPath();
 						ctx.arc(x, y, 5, 0, 2*Math.PI);
-						ctx.fillStyle = '#d99';
+						ctx.fillStyle = Kirigami.Theme['negativeTextColor'];
 						ctx.fill();
 					}
 				}
@@ -218,7 +218,7 @@ Kirigami.Page {
 					if (viewWeightsCB.checked) {
 						ctx.beginPath();
 						ctx.arc(x, y, 5, 0, 2*Math.PI);
-						ctx.fillStyle = '#66d';
+						ctx.fillStyle = Kirigami.Theme['activeTextColor'];
 						ctx.fill();
 					}
 				}
@@ -274,10 +274,12 @@ Kirigami.Page {
 				}
 
 				if (viewCaloriesTrendlineCB.checked) {
-					drawTrendline(calTrendData, radiusSlider.value*dx, '#f33');
+					drawTrendline(calTrendData, radiusSlider.value*dx, 
+						Kirigami.Theme['negativeTextColor']);
 				}
 				if (viewWeightsTrendlineCB.checked) {
-					drawTrendline(wsTrendData, radiusSlider.value*dx, '#44f');
+					drawTrendline(wsTrendData, radiusSlider.value*dx, 
+					Kirigami.Theme['activeTextColor']);
 				}
 			}
 		}

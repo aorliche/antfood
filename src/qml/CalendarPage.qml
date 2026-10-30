@@ -189,7 +189,7 @@ Kirigami.Page {
 				horizontalAlignment: Text.AlignHCenter
 				font.pixelSize: 18
 				font.bold: true
-				color: '#ddd'
+				color: Kirigami.Theme['textColor']
 				text: Qt.locale().monthName(currentMonth, Locale.LongFormat) 
 					+ " " + currentYear.toString()
 			}
@@ -323,7 +323,7 @@ Kirigami.Page {
 
 				// Day names header row
 				ctx.font = 'bold 13px sans-serif';
-				ctx.fillStyle = '#ddd';
+				ctx.fillStyle = Kirigami.Theme['textColor'];
 				const daysOfWeek = 
 					['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 				for (let d = 0; d < 7; d++) {
@@ -336,8 +336,6 @@ Kirigami.Page {
 				const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate();
 				const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
 				const today = new Date();
-
-				ctx.fillStyle = '#555';
 
 				function hoveringWithinDay(r, d) {
 					if (!hovering) {
@@ -383,53 +381,58 @@ Kirigami.Page {
 						if (dayCount < 1) {
 							day = daysInPrevMonth + dayCount;
 							month = currentMonth - 1;
-							fillStyle = '#222';
+							fillStyle = Kirigami.Theme['alternateBackgroundColor'];
 							lineWidth = 1;
 						// We're in the current month
 						} else if (dayCount <= daysInMonth) {
 							day = dayCount;
 							month = currentMonth;
-							fillStyle = '#222239';
+							fillStyle = Kirigami.Theme['activeBackgroundColor'];
 							lineWidth = 1;
 							// We're in the current day
 							if (day == today.getDate() 
 									&& currentMonth == today.getMonth() 
 									&& currentYear == today.getFullYear()) {
-								fillStyle = '#335';
+										fillStyle = Kirigami.Theme['highlightColor'];
 							}
 						// We're in the next month
 						} else {
 							day = dayCount - daysInMonth;
 							month = currentMonth + 1;
-							fillStyle = '#222';
+							fillStyle = Kirigami.Theme['alternateBackgroundColor'];
 							lineWidth = 1;
 						}
 						// Highlight hovering
 						if (hoveringWithinDay(r, d)) {
-							fillStyle = '#335';
+							fillStyle = Kirigami.Theme['highlightColor'];
 						}
 						// Highlight search
 						const key = `${month+1}/${day}/${currentYear}`;
 						if (searchHits.includes(key)) {
-							fillStyle = '#533';
+							fillStyle = Kirigami.Theme['negativeBackgroundColor'];
+							if (hoveringWithinDay(r, d)) {
+								fillStyle = Kirigami.Theme['negativeTextColor'];
+							}
 						}
 						ctx.fillStyle = fillStyle;
 						ctx.fillRect(d*cellWidth, headerHeight+r*cellHeight, 
 							cellWidth, cellHeight);
-						ctx.fillStyle = '#bbb';
+						ctx.fillStyle = Kirigami.Theme['disabledTextColor'];
 						ctx.fillText(day, d*cellWidth+5, headerHeight+r*cellHeight+20);
-						ctx.strokeStyle = '#ddd';
+						ctx.strokeStyle = Kirigami.Theme['textColor'];
 						ctx.lineWidth = lineWidth;
 						ctx.strokeRect(d*cellWidth, headerHeight+r*cellHeight, 
 							cellWidth, cellHeight);
 						// Get calories for today
-						drawCaloriesAndWeights('#fff', '#fff',
+						drawCaloriesAndWeights(
+							Kirigami.Theme['highlightedTextColor'], 
+							Kirigami.Theme['highlightedTextColor'],
 							month+1, day, currentYear, r, d);
 					}
 				}
 
 				// Draw border
-				ctx.strokeStyle = '#aaa';
+				ctx.strokeStyle = Kirigami.Theme['textColor'];
 				ctx.lineWidth = 2;
 				ctx.strokeRect(0, 0, width, height);
 			}
