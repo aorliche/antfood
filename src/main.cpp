@@ -20,8 +20,9 @@ int main(int argc, char *argv[])
     KLocalizedString::setApplicationDomain("Diary");
     QApplication::setOrganizationName(QStringLiteral("KDE"));
     QApplication::setOrganizationDomain(QStringLiteral("kde.org"));
-    QApplication::setApplicationName(QStringLiteral("KFoodDiary"));
+    QApplication::setApplicationName(QStringLiteral("antfood"));
     QApplication::setDesktopFileName(QStringLiteral("io.github.aorliche.antfood"));
+    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("io.github.aorliche.antfood")));
 
     QApplication::setStyle(QStringLiteral("breeze"));
     if (qEnvironmentVariableIsEmpty("QT_QUICK_CONTROLS_STYLE")) {

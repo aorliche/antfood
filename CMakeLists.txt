@@ -31,9 +31,13 @@ ecm_find_qmlmodule(org.kde.kirigami REQUIRED)
 
 add_subdirectory(src)
 
-install(PROGRAMS io.github.aorliche.antfood.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+install(FILES io.github.aorliche.antfood.desktop
+	DESTINATION ${KDE_INSTALL_APPDIR})
 
-install(FILES src/icons/io.github.aorliche.antfood.svg 
-	DESTINATION ${KDE_INSTALL_FULL_ICONDIR}/hicolor/scalable/apps)
+install(FILES io.github.aorliche.antfood.metainfo.xml
+	DESTINATION ${KDE_INSTALL_METAINFODIR})
+
+install(FILES src/icons/io.github.aorliche.antfood.svg
+	DESTINATION ${KDE_INSTALL_ICONDIR}/hicolor/scalable/apps)
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
