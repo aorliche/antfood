@@ -1,5 +1,7 @@
 # Ant Food Diary
 
+Eat like an ant, lift like a lion.
+
 <img src='https://github.com/aorliche/antfood/blob/50c5f1ff6e1dc6156738ee6b0e78df3f0ccddf8e/src/icons/io.github.aorliche.antfood.svg' width='200'>
 
 A text-first food, workout, and weight recorder and tracker. The database file is just a semi-structured text file that can be edited with any text editor.
