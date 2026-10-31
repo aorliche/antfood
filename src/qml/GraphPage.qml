@@ -6,7 +6,7 @@ import org.kde.kirigami as Kirigami
 Kirigami.Page {
 	id: graphPage
 	
-	title: i18nc("@title", "Food Diary Graphs")
+	title: i18nc("@title", "Diary Graphs")
 	
 	Column {
 		anchors.fill: parent

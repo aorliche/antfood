@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(kfooddiary)
+project(antfood)
 
 find_package(ECM 6.0.0 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
@@ -31,9 +31,9 @@ ecm_find_qmlmodule(org.kde.kirigami REQUIRED)
 
 add_subdirectory(src)
 
-install(PROGRAMS io.github.aorliche.kfooddiary.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+install(PROGRAMS io.github.aorliche.antfood.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 
-install(FILES src/icons/io.github.aorliche.kfooddiary.svg 
+install(FILES src/icons/io.github.aorliche.antfood.svg 
 	DESTINATION ${KDE_INSTALL_FULL_ICONDIR}/hicolor/scalable/apps)
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

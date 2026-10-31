@@ -16,7 +16,7 @@
 
 #include "backend.h"
 
-#define LOCAL_DIR "/.local/share/kfooddiary"
+#define LOCAL_DIR "/.local/share/antfood"
 
 using namespace std;
 
@@ -254,7 +254,7 @@ Backend::Backend(QObject *parent)
 	string local = QDir::homePath().toStdString() + string(LOCAL_DIR);
 	QDir().mkpath(QString::fromStdString(local));
 	// Read config file
-	string conf_name = local + "/kfooddiary.conf"s;
+	string conf_name = local + "/antfood.conf"s;
 	ifstream conf_file(conf_name);
 	// The config file doesn't exist so write one first
 	if (!conf_file.good()) {
@@ -410,7 +410,7 @@ void Backend::setDiaryFile(const QString &fname) {
 	reload();
 	// Update config file
 	string local = QDir::homePath().toStdString() + string(LOCAL_DIR);
-	string conf_name = local + "/kfooddiary.conf"s;
+	string conf_name = local + "/antfood.conf"s;
 	ofstream conf_file_out(conf_name);
 	conf_file_out << "diary_file = " << diary_fname;
 	conf_file_out.close();

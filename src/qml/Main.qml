@@ -7,7 +7,7 @@ import org.kde.kirigami as Kirigami
 Kirigami.ApplicationWindow {
 	id: root
 
-	title: i18nc("@title:window", "KFoodDiary")
+	title: i18nc("@title:window", "Ant Food Diary")
 
 	Dialogs.FileDialog {
 		id: fileDialog

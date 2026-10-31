@@ -8,7 +8,7 @@ Kirigami.Page {
 	width: 1200
 	height: 800
 
-	title: i18nc("@title", "Food Diary")
+	title: i18nc("@title", "Diary Calendar")
 
 	property list<string> searchHits: []
 

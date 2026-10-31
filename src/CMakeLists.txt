@@ -1,24 +1,24 @@
-add_executable(kfooddiary)
+add_executable(antfood)
 
-ecm_add_qml_module(kfooddiary
+ecm_add_qml_module(antfood
     URI
-    io.github.aorliche.kfooddiary
+    io.github.aorliche.antfood
 )
 
-target_sources(kfooddiary
+target_sources(antfood
     PRIVATE
     main.cpp
 	backend.cpp
 )
 
-ecm_target_qml_sources(kfooddiary
+ecm_target_qml_sources(antfood
     SOURCES
     qml/Main.qml
 	qml/CalendarPage.qml
 	qml/GraphPage.qml
 )
 
-target_link_libraries(kfooddiary
+target_link_libraries(antfood
     PRIVATE
     Qt6::Quick
     Qt6::Qml
@@ -30,5 +30,5 @@ target_link_libraries(kfooddiary
     KF6::IconThemes
 )
 
-install(TARGETS kfooddiary ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS antfood ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 

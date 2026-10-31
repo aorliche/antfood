@@ -1,14 +1,14 @@
 # Maintainer: Anton Orlichenko <aorliche [at] gmail [dot] com>
 
-pkgname=kfooddiary-git
+pkgname=antfood-git
 _pkgname=${pkgname%-git}
-pkgver=r0.16
+pkgver=r0.1
 pkgrel=1
 pkgdesc='A text-first app for recording and viewing calories, weight, and other daily events'
 arch=('x86_64')
-url='https://github.com/aorliche/kfooddiary/'
+url='https://github.com/aorliche/antfood/'
 license=('MIT')
-provides=('kfooddiary')	
+provides=('antfood')	
 
 # Core runtime requirements
 depends=('kirigami' 'qt6-declarative' 'qt6-svg' 'qqc2-desktop-style' 'ki18n' 'kcoreaddons')

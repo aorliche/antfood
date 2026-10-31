@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=KFoodDiary
+Name=Ant Food Diary
 Comment=Record and view calories, weight, and other daily events
-Exec=kfooddiary
-Icon=io.github.aorliche.kfooddiary
+Exec=antfood
+Icon=io.github.aorliche.antfood
 Type=Application
 Terminal=false
 Categories=Utility

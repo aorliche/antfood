@@ -1,14 +1,14 @@
-id: io.github.aorliche.kfooddiary
+id: io.github.aorliche.antfood
 runtime: org.kde.Platform
 runtime-version: 6.11
 sdk: org.kde.Sdk
-command: kfooddiary
+command: antfood
 finish-args:
   - --socket=fallback-x11
   - --socket=wayland
   - --device=dri
 modules:
-  - name: kfooddiary
+  - name: antfood
     buildsystem: cmake-ninja
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
