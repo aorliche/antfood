@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.aorliche.antfood</id>
+  
+  <name>Ant Food Diary</name>
+  <summary>A text-first app for recording and viewing calories, weight, and other daily events</summary>
+  
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+
+  <developer id="io.github.aorliche">
+	  <name>Anton Orlichenko</name>
+  </developer>
+
+  <recommends>
+	  <display_length compare="ge">1200</display_length>
+  </recommends>
+  <requires>
+	  <control>keyboard</control>
+	  <control>pointing</control>
+	  <display_length compare="ge">768</display_length>
+  </requires>
+  
+  <description>
+    <p>
+      The tagline of this app is: <em>eat like an ant, lift like a lion.</em> We hope to help you with your weight loss and muscle-building goals.
+    </p>
+    <p>
+      AntFoodDiary is a text-first food, workout, and weight recorder and tracker. The database file is just a semi-structured text file that can be edited with any text editor. The GUI takes that text file and organizes/summarizes it in a convenient calendar view.
+    </p>
+    <p>
+		Using the app you can:
+	</p>
+	<ul>
+		<li>Edit the notes for each day, including food consumed, weight recorded, bowel movements, and any other notes you feel are worth keeping track of</li>
+		<li>Search for the days that you performed a particular activity</li>
+		<li>View interactive graphs of the details of your diet over time</li>
+	</ul>
+    <p>
+      The app is built using the Kirigami framework and the latest KDE libs.
+    </p>
+  </description>
+  
+  <launchable type="desktop-id">io.github.aorliche.antfood.desktop</launchable>
+  <categories>
+	  <category>HealthFitness</category>
+	  <category>Utility</category>
+  </categories>
+  <keywords>
+	  <keyword>food</keyword>
+	  <keyword>exercise</keyword>
+	  <keyword>diary</keyword>
+  </keywords>
+  <branding>
+	  <color type="primary" scheme_preference="light">#af7faf</color>
+	  <color type="primary" scheme_preference="dark">#a599a5</color>
+  </branding>
+  <content_rating type="oars-1.1" />
+  <url type="bugtracker">https://github.com/aorliche/antfood/issues</url>
+  <url type="homepage">https://github.com/aorliche/antfood</url>
+  <screenshots>
+	  <screenshot type="default">
+		  <image>https://github.com/aorliche/antfood/blob/50c5f1ff6e1dc6156738ee6b0e78df3f0ccddf8e/images/screenshots/edit_day.png</image>
+	  </screenshot>
+	  <screenshot>
+		  <image>https://github.com/aorliche/antfood/blob/50c5f1ff6e1dc6156738ee6b0e78df3f0ccddf8e/images/screenshots/search.png</image>
+	  </screenshot>
+	  <screenshot>
+		  <image>https://github.com/aorliche/antfood/blob/50c5f1ff6e1dc6156738ee6b0e78df3f0ccddf8e/images/screenshots/graphs.png</image>
+	  </screenshot>
+  </screenshots>
+  <releases>
+	  <release version="0.1.1" date="2026-10-31">
+		  <description>
+			  <p>First version, includes settings for diary file and default templates on new days.</p>
+			  <ul>
+				  <li>Edit days in the calendar view</li>
+				  <li>Search daily information for interesting occurences</li>
+				  <li>View graphs of your calorie consumption and weight over time</li>
+			  </ul>
+		  </description>
+	  </release>
+  </releases>
+	<custom>
+		<value key="flathub::manifest">https://github.com/aorliche/antfood/blob/d4d35305ef4c8fb579fb8336b9135441ade6cf2d/io.github.aorliche.antfood.yml</value>
+	</custom>
+</component>
