@@ -1,8 +1,12 @@
 [Desktop Entry]
 Name=Ant Food Diary
+GenericName=Food Diary
 Comment=Record and view calories, weight, and other daily events
 Exec=antfood
 Icon=io.github.aorliche.antfood
 Type=Application
 Terminal=false
-Categories=Utility
+Categories=Utility;
+Keywords=food;exercise;diary;calories;weight;
+StartupNotify=true
+StartupWMClass=antfood
