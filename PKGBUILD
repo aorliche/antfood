@@ -5,7 +5,7 @@ pkgver=r0.1
 pkgrel=1
 pkgdesc='A text-first app for recording and viewing calories, weight, and other daily events'
 arch=('x86_64' 'aarch64')
-url='https://github.com/aorliche/antfood/'
+url='https://github.com/aorliche/antfood'
 license=('MIT')
 provides=('antfood')
 conflicts=('antfood')
@@ -25,7 +25,7 @@ pkgver() {
 }
 
 build() {
-	cmake -B build -S "${pkgname}" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_TESTING=OFF
+	cmake -B build -S "${pkgname}" -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF
 	cmake --build build
 }
 
