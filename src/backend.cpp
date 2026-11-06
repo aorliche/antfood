@@ -259,7 +259,7 @@ Backend::Backend(QObject *parent)
 	// The config file doesn't exist so write one first
 	if (!conf_file.good()) {
 		ofstream conf_file_out(conf_name);
-		conf_file_out << "diary_file = " << local << "/diary.txt";
+		conf_file_out << "diary_file = " << local << "/diary.txt" << endl;
 		conf_file_out.close();
 		conf_file = ifstream(conf_name);
 	}
@@ -412,7 +412,7 @@ void Backend::setDiaryFile(const QString &fname) {
 	string local = QDir::homePath().toStdString() + string(LOCAL_DIR);
 	string conf_name = local + "/antfood.conf"s;
 	ofstream conf_file_out(conf_name);
-	conf_file_out << "diary_file = " << diary_fname;
+	conf_file_out << "diary_file = " << diary_fname << endl;
 	conf_file_out.close();
 }
 
